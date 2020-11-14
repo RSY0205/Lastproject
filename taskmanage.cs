@@ -96,7 +96,7 @@ namespace Lastproject
             String query = "SELECT * FROM tasklist";//SELECT 쿼리 작성
             List<string> task=new List<string>();
             task = null;//초기화
-            task=DBManager.GetInstance().Select(query);//DB 입력
+            task=DBManager.GetInstance().Select(query);
             for(int i = 0; i < task.Count;) {
                 if (i == 0)
                 {
