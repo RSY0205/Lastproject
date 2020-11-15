@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
+using System.Data;
 
 namespace Lastproject
 {
@@ -23,7 +25,7 @@ namespace Lastproject
         {
 
         }
-        public List<string> Select(string query)
+        public List<string> SelectTaskList(string query)
         {
             List<string> temp = new List<string>();
             using (MySqlConnection conn = new MySqlConnection(Connection_stirng))
@@ -46,44 +48,6 @@ namespace Lastproject
             return temp;
         }
 
-        /*public List<string> ButtonSelect(string query)
-        {
-            List<string> temp = new List<string>();
-            using (MySqlConnection conn = new MySqlConnection(Connection_stirng))
-            {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    temp.Add(rdr["name"] + "");
-                }
-
-                rdr.Close();
-            }
-            return temp;
-        }*/
-
-        /*public List<string> ButtonMakeSelect(string query)
-        {
-            List<string> temp = new List<string>();
-            using (MySqlConnection conn = new MySqlConnection(Connection_stirng))
-            {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())
-                {
-                    temp.Add(rdr["name"] + "");
-                    temp.Add(rdr["cost"] + "");
-                }
-
-                rdr.Close();
-            }
-            return temp;
-        }*/
 
         public void SendQuery(string query)
         {
@@ -95,7 +59,7 @@ namespace Lastproject
             }
         }
 
-        /*public void showdataGridView(string query, DataGridView dataGridView)
+        public void showdataGridView(string query, DataGridView dataGridView)
         {
             using (MySqlConnection conn = new MySqlConnection(Connection_stirng))
             {
@@ -110,6 +74,6 @@ namespace Lastproject
                 rdr.Close();
 
             }
-        }*/
+        }
     }
 }

@@ -29,6 +29,18 @@
         private void InitializeComponent()
         {
             this.검색 = new System.Windows.Forms.TabControl();
+            this.tapTaskManage = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonDelTaskLog = new System.Windows.Forms.Button();
+            this.buttonModify = new System.Windows.Forms.Button();
+            this.buttonSaveTask = new System.Windows.Forms.Button();
+            this.dataGridViewTask = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.treeViewTaskManager = new System.Windows.Forms.TreeView();
             this.tapTaskmaster = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -40,24 +52,12 @@
             this.buttonDel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.treeViewTask = new System.Windows.Forms.TreeView();
-            this.tapTaskManage = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
-            this.treeViewTaskManager = new System.Windows.Forms.TreeView();
             this.검색.SuspendLayout();
-            this.tapTaskmaster.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.tapTaskManage.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTask)).BeginInit();
+            this.tapTaskmaster.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // 검색
@@ -70,6 +70,135 @@
             this.검색.SelectedIndex = 0;
             this.검색.Size = new System.Drawing.Size(699, 492);
             this.검색.TabIndex = 0;
+            // 
+            // tapTaskManage
+            // 
+            this.tapTaskManage.Controls.Add(this.groupBox1);
+            this.tapTaskManage.Location = new System.Drawing.Point(4, 22);
+            this.tapTaskManage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tapTaskManage.Name = "tapTaskManage";
+            this.tapTaskManage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tapTaskManage.Size = new System.Drawing.Size(691, 466);
+            this.tapTaskManage.TabIndex = 0;
+            this.tapTaskManage.Text = "업무 관리";
+            this.tapTaskManage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonSearch);
+            this.groupBox1.Controls.Add(this.buttonDelTaskLog);
+            this.groupBox1.Controls.Add(this.buttonModify);
+            this.groupBox1.Controls.Add(this.buttonSaveTask);
+            this.groupBox1.Controls.Add(this.dataGridViewTask);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.dateTimePickerEnd);
+            this.groupBox1.Controls.Add(this.dateTimePickerStart);
+            this.groupBox1.Controls.Add(this.treeViewTaskManager);
+            this.groupBox1.Location = new System.Drawing.Point(0, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(691, 449);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "업무 관리";
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(481, 380);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(78, 52);
+            this.buttonSearch.TabIndex = 33;
+            this.buttonSearch.Text = "검색";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
+            // buttonDelTaskLog
+            // 
+            this.buttonDelTaskLog.Location = new System.Drawing.Point(565, 380);
+            this.buttonDelTaskLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonDelTaskLog.Name = "buttonDelTaskLog";
+            this.buttonDelTaskLog.Size = new System.Drawing.Size(78, 52);
+            this.buttonDelTaskLog.TabIndex = 32;
+            this.buttonDelTaskLog.Text = "삭제";
+            this.buttonDelTaskLog.UseVisualStyleBackColor = true;
+            this.buttonDelTaskLog.Click += new System.EventHandler(this.buttonDelTaskLog_Click);
+            // 
+            // buttonModify
+            // 
+            this.buttonModify.Location = new System.Drawing.Point(397, 380);
+            this.buttonModify.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonModify.Name = "buttonModify";
+            this.buttonModify.Size = new System.Drawing.Size(78, 52);
+            this.buttonModify.TabIndex = 31;
+            this.buttonModify.Text = "수정";
+            this.buttonModify.UseVisualStyleBackColor = true;
+            // 
+            // buttonSaveTask
+            // 
+            this.buttonSaveTask.Location = new System.Drawing.Point(313, 380);
+            this.buttonSaveTask.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonSaveTask.Name = "buttonSaveTask";
+            this.buttonSaveTask.Size = new System.Drawing.Size(78, 52);
+            this.buttonSaveTask.TabIndex = 30;
+            this.buttonSaveTask.Text = "저장";
+            this.buttonSaveTask.UseVisualStyleBackColor = true;
+            this.buttonSaveTask.Click += new System.EventHandler(this.buttonSaveTask_Click);
+            // 
+            // dataGridViewTask
+            // 
+            this.dataGridViewTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTask.Location = new System.Drawing.Point(284, 19);
+            this.dataGridViewTask.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridViewTask.Name = "dataGridViewTask";
+            this.dataGridViewTask.RowHeadersWidth = 51;
+            this.dataGridViewTask.RowTemplate.Height = 27;
+            this.dataGridViewTask.Size = new System.Drawing.Size(403, 356);
+            this.dataGridViewTask.TabIndex = 29;
+            this.dataGridViewTask.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTask_CellContentClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 415);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 12);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "종료 시간";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 390);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 12);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "시작 시간";
+            // 
+            // dateTimePickerEnd
+            // 
+            this.dateTimePickerEnd.Location = new System.Drawing.Point(66, 409);
+            this.dateTimePickerEnd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePickerEnd.Name = "dateTimePickerEnd";
+            this.dateTimePickerEnd.Size = new System.Drawing.Size(180, 21);
+            this.dateTimePickerEnd.TabIndex = 26;
+            // 
+            // dateTimePickerStart
+            // 
+            this.dateTimePickerStart.Location = new System.Drawing.Point(66, 384);
+            this.dateTimePickerStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePickerStart.Name = "dateTimePickerStart";
+            this.dateTimePickerStart.Size = new System.Drawing.Size(180, 21);
+            this.dateTimePickerStart.TabIndex = 25;
+            // 
+            // treeViewTaskManager
+            // 
+            this.treeViewTaskManager.Location = new System.Drawing.Point(6, 19);
+            this.treeViewTaskManager.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.treeViewTaskManager.Name = "treeViewTaskManager";
+            this.treeViewTaskManager.Size = new System.Drawing.Size(249, 356);
+            this.treeViewTaskManager.TabIndex = 24;
+            this.treeViewTaskManager.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView2_AfterSelect);
             // 
             // tapTaskmaster
             // 
@@ -185,131 +314,6 @@
             this.treeViewTask.Size = new System.Drawing.Size(249, 313);
             this.treeViewTask.TabIndex = 13;
             // 
-            // tapTaskManage
-            // 
-            this.tapTaskManage.Controls.Add(this.groupBox1);
-            this.tapTaskManage.Location = new System.Drawing.Point(4, 22);
-            this.tapTaskManage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tapTaskManage.Name = "tapTaskManage";
-            this.tapTaskManage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tapTaskManage.Size = new System.Drawing.Size(691, 466);
-            this.tapTaskManage.TabIndex = 0;
-            this.tapTaskManage.Text = "업무 관리";
-            this.tapTaskManage.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.dateTimePickerEnd);
-            this.groupBox1.Controls.Add(this.dateTimePickerStart);
-            this.groupBox1.Controls.Add(this.treeViewTaskManager);
-            this.groupBox1.Location = new System.Drawing.Point(0, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(691, 449);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "업무 관리";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(481, 380);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 52);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "검색";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(565, 380);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 52);
-            this.button2.TabIndex = 32;
-            this.button2.Text = "삭제";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(397, 380);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(78, 52);
-            this.button3.TabIndex = 31;
-            this.button3.Text = "수정";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(313, 380);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(78, 52);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "저장";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(284, 19);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(403, 356);
-            this.dataGridView1.TabIndex = 29;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 415);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 12);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "종료 시간";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 390);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 12);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "시작 시간";
-            // 
-            // dateTimePickerEnd
-            // 
-            this.dateTimePickerEnd.Location = new System.Drawing.Point(66, 409);
-            this.dateTimePickerEnd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePickerEnd.Name = "dateTimePickerEnd";
-            this.dateTimePickerEnd.Size = new System.Drawing.Size(180, 21);
-            this.dateTimePickerEnd.TabIndex = 26;
-            // 
-            // dateTimePickerStart
-            // 
-            this.dateTimePickerStart.Location = new System.Drawing.Point(66, 384);
-            this.dateTimePickerStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTimePickerStart.Name = "dateTimePickerStart";
-            this.dateTimePickerStart.Size = new System.Drawing.Size(180, 21);
-            this.dateTimePickerStart.TabIndex = 25;
-            // 
-            // treeViewTaskManager
-            // 
-            this.treeViewTaskManager.Location = new System.Drawing.Point(6, 19);
-            this.treeViewTaskManager.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.treeViewTaskManager.Name = "treeViewTaskManager";
-            this.treeViewTaskManager.Size = new System.Drawing.Size(249, 356);
-            this.treeViewTaskManager.TabIndex = 24;
-            this.treeViewTaskManager.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView2_AfterSelect);
-            // 
             // taskmanage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -321,13 +325,13 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.taskmanage_Load);
             this.검색.ResumeLayout(false);
-            this.tapTaskmaster.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.tapTaskManage.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTask)).EndInit();
+            this.tapTaskmaster.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -348,11 +352,11 @@
         private System.Windows.Forms.TextBox textBoxMain;
         private System.Windows.Forms.TabPage tapTaskManage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonDelTaskLog;
+        private System.Windows.Forms.Button buttonModify;
+        private System.Windows.Forms.Button buttonSaveTask;
+        private System.Windows.Forms.DataGridView dataGridViewTask;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dateTimePickerEnd;

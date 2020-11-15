@@ -25,7 +25,7 @@ namespace Lastproject
             String query = "SELECT * FROM tasklist";//SELECT 쿼리 작성
             List<string> task = new List<string>();
             task = null;//초기화
-            task = DBManager.GetInstance().Select(query);//DB 입력
+            task = DBManager.GetInstance().SelectTaskList(query);//DB 입력
             for (int i = 0; i < task.Count;)
             {
                 if (i == 0)
@@ -96,7 +96,7 @@ namespace Lastproject
             String query = "SELECT * FROM tasklist";//SELECT 쿼리 작성
             List<string> task=new List<string>();
             task = null;//초기화
-            task=DBManager.GetInstance().Select(query);
+            task=DBManager.GetInstance().SelectTaskList(query);
             for(int i = 0; i < task.Count;) {
                 if (i == 0)
                 {
@@ -164,29 +164,36 @@ namespace Lastproject
         {
             string query = "INSERT INTO tasklist(maincategory,middlecategory,subcategory) values('" + textBoxMain.Text + "','" + textBoxMid.Text + "','" + textBoxSub.Text + "')";
             DBManager.GetInstance().SendQuery(query);
+            InitializeTreeView();
+            InitializeTreViewtaskManage();
         }
 
         private void buttonDel_Click(object sender, EventArgs e)
         {
-            String temp = treeViewTask.SelectedNode.FullPath;
-            String Query = null;
-            String[] split_temp;
+            if (treeViewTask.SelectedNode == null) { MessageBox.Show("삭제할 값을 선택해주세요"); }
+            else
+            {
+                String temp = treeViewTask.SelectedNode.FullPath;
+                String Query = null;
+                String[] split_temp;
 
-            split_temp = temp.Split('\\');
-            if (split_temp.Length == 1) {
-                Query = "delete from tasklist where maincategory='" + split_temp[0] + "'";
+                split_temp = temp.Split('\\');
+                if (split_temp.Length == 1)
+                {
+                    Query = "delete from tasklist where maincategory='" + split_temp[0] + "'";
+                }
+                else if (split_temp.Length == 2)
+                {
+                    Query = "delete from tasklist where middlecategory='" + split_temp[1] + "'";
+                }
+                else if (split_temp.Length == 3)
+                {
+                    Query = "delete from tasklist where subcategory='" + split_temp[2] + "'";
+                }
+                DBManager.GetInstance().SendQuery(Query);
+                InitializeTreeView();
+                InitializeTreViewtaskManage();
             }
-            else if (split_temp.Length == 2)
-            {
-                Query = "delete from tasklist where middlecategory='" + split_temp[1] + "'";
-            }
-            else if (split_temp.Length == 3)
-            {
-                Query = "delete from tasklist where subcategory='" + split_temp[2] + "'";
-            }
-            DBManager.GetInstance().SendQuery(Query);
-            InitializeTreeView();
-            InitializeTreViewtaskManage();
         }
 
         private void comboBoxMid_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,5 +210,64 @@ namespace Lastproject
         {
 
         }
-    }
+
+        private void buttonSaveTask_Click(object sender, EventArgs e)
+        {
+            if (treeViewTaskManager.SelectedNode == null) { MessageBox.Show("등록할 업무를 선택해주세요"); }
+            else {
+            String temp = treeViewTaskManager.SelectedNode.FullPath;
+            String[] split_temp = new String[3] {null,null,null} ;
+                split_temp=temp.Split('\\');
+
+            String ID = "test";
+            String name = "tester";
+                //for (int i = 0; i < 3; i++) { MessageBox.Show(split_temp[i]); }
+
+            if (split_temp.Length < 1) { MessageBox.Show("대분류를 선택해주세요"); }
+            else if (split_temp.Length < 2) { MessageBox.Show("중분류를 선택해주세요"); }
+            else if (split_temp.Length < 3) { MessageBox.Show("소분류를 선택해주세요"); }
+            else{
+                String query = "INSERT INTO taskhistory(starttime,endtime,user_id,name,maincategory,middlecategory,subcategory) values('" + dateTimePickerStart.Text + "','" + dateTimePickerEnd.Text + "','" + ID + "','" + name + "','" + split_temp[0] + "','" + split_temp[1] + "','" + split_temp[2] + "')";
+                DBManager.GetInstance().SendQuery(query);
+                MessageBox.Show("업무등록을 완료하였습니다!");
+            }
+            }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            String ID = "test";
+            String query ="SELECT id as 번호, starttime as 시작시간, endtime as 종료시간, user_id as 사용자ID, name as 이름, maincategory as 대분류, middlecategory as 중분류, subcategory as 소분류 FROM taskhistory WhERE user_id='"+ID+"'";
+            DBManager.GetInstance().showdataGridView(query, dataGridViewTask);
+
+
+        }
+
+        private void dataGridViewTask_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+
+        private void buttonDelTaskLog_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTask.Rows[dataGridViewTask.CurrentCellAddress.Y].Cells[0].Value.ToString() == null) { MessageBox.Show("잘못된 접근입니다."); }
+            else
+            {
+                String seldel = dataGridViewTask.Rows[dataGridViewTask.CurrentCellAddress.Y].Cells[0].Value.ToString();
+                if (MessageBox.Show("선택하신 업무 기록이 삭제됩니다.\n 선택한 번호는 " + seldel + "입니다.", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    String Query = "delete from taskhistory where id='" + seldel + "'";            
+                    DBManager.GetInstance().SendQuery(Query);
+                    MessageBox.Show("삭제 되었습니다.");
+                    String ID = "test";
+                    String query = "SELECT id as 번호, starttime as 시작시간, endtime as 종료시간, user_id as 사용자ID, name as 이름, maincategory as 대분류, middlecategory as 중분류, subcategory as 소분류 FROM taskhistory WhERE user_id='" + ID + "'";
+                    DBManager.GetInstance().showdataGridView(query, dataGridViewTask);
+                }
+                else
+                {
+                    MessageBox.Show("취소 되었습니다.");
+                }
+            }
+
+        }                                                            
+        }
 }
