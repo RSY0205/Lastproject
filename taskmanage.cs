@@ -83,9 +83,9 @@ namespace Lastproject
         }
         private void InitialzieDateTimePicker()
         {
-            dateTimePickerStart.CustomFormat = "yy년 MM월 dd일 HH시 mm분";
+            dateTimePickerStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             dateTimePickerStart.Format = DateTimePickerFormat.Custom;
-            dateTimePickerEnd.CustomFormat = "yy년 MM월 dd일 HH시 mm분";
+            dateTimePickerEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             dateTimePickerEnd.Format = DateTimePickerFormat.Custom;
         }
 
@@ -213,6 +213,7 @@ namespace Lastproject
 
         private void buttonSaveTask_Click(object sender, EventArgs e)
         {
+            string overlapquery="SELECT count(*) cnt FROM taskhistory WHERE '"+dateTimePickerStart.Text+"' <=endtime AND '"+dateTimePickerEnd.Text+"' >=starttime";        
             if (treeViewTaskManager.SelectedNode == null) { MessageBox.Show("등록할 업무를 선택해주세요"); }
             else {
             String temp = treeViewTaskManager.SelectedNode.FullPath;
@@ -223,14 +224,20 @@ namespace Lastproject
             String name = "tester";
                 //for (int i = 0; i < 3; i++) { MessageBox.Show(split_temp[i]); }
 
-            if (split_temp.Length < 1) { MessageBox.Show("대분류를 선택해주세요"); }
-            else if (split_temp.Length < 2) { MessageBox.Show("중분류를 선택해주세요"); }
-            else if (split_temp.Length < 3) { MessageBox.Show("소분류를 선택해주세요"); }
-            else{
-                String query = "INSERT INTO taskhistory(starttime,endtime,user_id,name,maincategory,middlecategory,subcategory) values('" + dateTimePickerStart.Text + "','" + dateTimePickerEnd.Text + "','" + ID + "','" + name + "','" + split_temp[0] + "','" + split_temp[1] + "','" + split_temp[2] + "')";
-                DBManager.GetInstance().SendQuery(query);
-                MessageBox.Show("업무등록을 완료하였습니다!");
-            }
+                if (split_temp.Length < 1) { MessageBox.Show("대분류를 선택해주세요"); }
+                else if (split_temp.Length < 2) { MessageBox.Show("중분류를 선택해주세요"); }
+                else if (split_temp.Length < 3) { MessageBox.Show("소분류를 선택해주세요"); }
+                else {
+                    if (DBManager.GetInstance().Selectoverlap(overlapquery) == 0)
+                    {
+                        String query = "INSERT INTO taskhistory(starttime,endtime,user_id,name,maincategory,middlecategory,subcategory) values('" + dateTimePickerStart.Text + "','" + dateTimePickerEnd.Text + "','" + ID + "','" + name + "','" + split_temp[0] + "','" + split_temp[1] + "','" + split_temp[2] + "')";
+                        DBManager.GetInstance().SendQuery(query);
+                        String query2 = "SELECT id as 번호, starttime as 시작시간, endtime as 종료시간, user_id as 사용자ID, name as 이름, maincategory as 대분류, middlecategory as 중분류, subcategory as 소분류 FROM taskhistory WhERE user_id='" + ID + "'";
+                        DBManager.GetInstance().showdataGridView(query2, dataGridViewTask);
+                        MessageBox.Show("업무등록을 완료하였습니다!"); }
+
+                    else { MessageBox.Show("업무 시간이 중복!!"); }
+                }
             }
         }
 
@@ -253,7 +260,7 @@ namespace Lastproject
             else
             {
                 String seldel = dataGridViewTask.Rows[dataGridViewTask.CurrentCellAddress.Y].Cells[0].Value.ToString();
-                if (MessageBox.Show("선택하신 업무 기록이 삭제됩니다.\n 선택한 번호는 " + seldel + "입니다.", "YesOrNo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("선택하신 업무 기록이 삭제됩니다.\n 선택한 번호는 " + seldel + "입니다.", "확인", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     String Query = "delete from taskhistory where id='" + seldel + "'";            
                     DBManager.GetInstance().SendQuery(Query);
@@ -268,6 +275,55 @@ namespace Lastproject
                 }
             }
 
-        }                                                            
         }
+
+        private void treeViewTask_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+           
+                String temp = treeViewTask.SelectedNode.FullPath;
+                String[] split_temp = new String[3] { null, null, null };
+                split_temp = temp.Split('\\');
+
+                String ID = "test";
+                String name = "tester";
+                //for (int i = 0; i < 3; i++) { MessageBox.Show(split_temp[i]); }
+
+                if (split_temp.Length== 1) { textBoxMain.Text=split_temp[0]; }
+                else if (split_temp.Length== 2) { textBoxMain.Text = split_temp[0]; textBoxMid.Text = split_temp[1]; }
+                else  { textBoxMain.Text = split_temp[0]; textBoxMid.Text = split_temp[1]; textBoxMid.Text = split_temp[1]; textBoxSub.Text = split_temp[2]; }
+                
+        }
+
+        private void buttonModify_Click(object sender, EventArgs e)
+        {
+            //Update
+            if (dataGridViewTask.Rows[dataGridViewTask.CurrentCellAddress.Y].Cells[0].Value.ToString() == null) { MessageBox.Show("잘못된 접근입니다."); }
+            if (treeViewTaskManager.SelectedNode == null) { MessageBox.Show("수정할 업무내용을 선택해주세요"); }            
+            else
+            {
+                String temp = treeViewTaskManager.SelectedNode.FullPath;
+                String[] split_temp = new String[3] { null, null, null };
+                split_temp = temp.Split('\\');
+                String seldel = dataGridViewTask.Rows[dataGridViewTask.CurrentCellAddress.Y].Cells[0].Value.ToString();
+                String ID = "test";
+                String name = "tester";
+                
+
+                if (split_temp.Length < 1) { MessageBox.Show("대분류를 선택해주세요"); }
+                else if (split_temp.Length < 2) { MessageBox.Show("중분류를 선택해주세요"); }
+                else if (split_temp.Length < 3) { MessageBox.Show("소분류를 선택해주세요"); }
+                else
+                {
+                    String query1 = "UPDATE taskhistory SET starttime='"+ dateTimePickerStart.Text +"', endtime='" + dateTimePickerEnd.Text +"',  maincategory='"+ split_temp[0] + "', middlecategory='"+split_temp[1]+ "', subcategory='"+ split_temp[2] +"' WHERE id="+seldel;
+                    
+                    DBManager.GetInstance().SendQuery(query1);
+
+                    String query2 = "SELECT id as 번호, starttime as 시작시간, endtime as 종료시간, user_id as 사용자ID, name as 이름, maincategory as 대분류, middlecategory as 중분류, subcategory as 소분류 FROM taskhistory WhERE user_id='" + ID + "'";
+                    DBManager.GetInstance().showdataGridView(query2, dataGridViewTask);
+                    
+                    MessageBox.Show("업무수정 완료하였습니다!");
+                }
+            }
+        }
+    }
 }

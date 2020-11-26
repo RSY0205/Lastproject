@@ -48,6 +48,27 @@ namespace Lastproject
             return temp;
         }
 
+        public int Selectoverlap(string query)
+        {
+            int cnt = 0;
+            using (MySqlConnection conn = new MySqlConnection(Connection_stirng))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    cnt = rdr.FieldCount;
+                    
+
+                }
+
+                rdr.Close();
+            }
+            return cnt;
+        }
+
 
         public void SendQuery(string query)
         {

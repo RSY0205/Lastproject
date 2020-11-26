@@ -133,6 +133,7 @@
             this.buttonModify.TabIndex = 31;
             this.buttonModify.Text = "수정";
             this.buttonModify.UseVisualStyleBackColor = true;
+            this.buttonModify.Click += new System.EventHandler(this.buttonModify_Click);
             // 
             // buttonSaveTask
             // 
@@ -302,7 +303,7 @@
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(129, 51);
             this.buttonSave.TabIndex = 14;
-            this.buttonSave.Text = "저장";
+            this.buttonSave.Text = "수정";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
@@ -313,6 +314,7 @@
             this.treeViewTask.Name = "treeViewTask";
             this.treeViewTask.Size = new System.Drawing.Size(249, 313);
             this.treeViewTask.TabIndex = 13;
+            this.treeViewTask.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewTask_AfterSelect);
             // 
             // taskmanage
             // 
